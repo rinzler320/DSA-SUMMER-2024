@@ -42,8 +42,45 @@ bool isFull(StackArrayList s){
 }
 
 void display(StackArrayList s){
-	
+	if(isEmpty(s)){
+		printf("Stack is empty.\n");
+	}else{
+		printf("Stack elements:\n");
+		int i;
+		for(i=0;i<=s.top;i++){
+			printf("%d", s.data[i]);
+		}
+	}
+	printf("\n");
 }
 void visualize(StackArrayList s){
+	printf("Visualizing the stack:\n");
+	printf("TOP\n");
+	int i;
+	for(i=s.top;i>=0;i--){
+		printf("| %d |\n", s.data[i]);
+	}
+	printf("BOTTOM\n");
+}
+
+StackArrayList getEvenNumbers(StackArrayList *s){
+	StackArrayList evenStack = createStack();
+	StackArrayList tempStack = createStack();
 	
+	while(!isEmpty(*s)){
+		int topElem=stack_peek(*s);
+		stack_pop(s);
+		if(topElem%2==0){
+			stack_push(&evenStack, topElem);
+		}else{
+			stack_push(&tempStack, topElem);
+		}
+	}
+	while(!isEmpty(tempStack)){
+		int topElem=stack_peek(tempStack);
+		stack_pop(&tempStack);
+		stack_push(s, topElem);
+	}
+	
+	return evenStack;
 }
